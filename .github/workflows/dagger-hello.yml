@@ -43,25 +43,17 @@ jobs:
                 --dry-run=${{ inputs.dry_run }}
                 --github-token=env:GITHUB_TOKEN
 
-      - name: Run snyk
+      - name: Run Snyk test (Dagger module)
         uses: dagger/dagger-for-github@v8.2.0
-        env:
-            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN || github.token }}
         with:
             version: "0.19.10"
-            verb: call
-            module: github.com/shahbazmastan/dagger-modules/hello@main
-            args: >-
-                snyk
+            module: github.com/shahbazmastan/dagger-modules/snyk@main
+            call: test
+      - name: Run Snyk test (Dagger module)
+        uses: dagger/dagger-for-github@v8.2.0
+        with:
+            version: "0.19.10"
+            module: github.com/shahbazmastan/dagger-modules/snyk@main
+            call: monitor
 
-      - name: Run Snyk-Monitor
-        uses: dagger/dagger-for-github@v8.2.0
-        env:
-            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN || github.token }}
-        with:
-            version: "0.19.10"
-            verb: call
-            module: github.com/shahbazmastan/dagger-modules/hello@main
-            args: >-
-                snykmonitor
 
