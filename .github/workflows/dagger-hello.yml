@@ -28,16 +28,14 @@ jobs:
       DAGGER_LOG_FORMAT: "plain"
 
     steps:
-      - name: Run Dagger module function (hello)
+      - name: Run hello
         uses: dagger/dagger-for-github@v8.2.0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN || github.token }}
         with:
           version: "0.19.10"
-          verb: call
-          # repo/subdir@ref
-          module: github.com/shahbazmastan/dagger-modules/hello@main
-          args: >-
+          module: github.com/shahbazmastan/dagger-modules@main/hello
+          call: >-
             hello
             --release-version=${{ inputs.release_version }}
             --tag-prefix=${{ inputs.tag_prefix }}
