@@ -53,8 +53,4 @@ jobs:
             module: github.com/shahbazmastan/dagger-modules/hello@main
             args: >-
                 snyk
-                --release-version=${{ inputs.release_version }}
-                --tag-prefix=${{ inputs.tag_prefix }}
-                --dry-run=${{ inputs.dry_run }}
-                --github-token=env:GITHUB_TOKEN
 
