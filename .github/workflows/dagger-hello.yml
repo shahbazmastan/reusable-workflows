@@ -1,0 +1,45 @@
+name: Dagger Hello (reusable)
+
+on:
+  workflow_call:
+    inputs:
+      release_version:
+        type: string
+        required: true
+      tag_prefix:
+        type: string
+        required: false
+        default: ""
+      dry_run:
+        type: boolean
+        required: false
+        default: false
+
+permissions:
+  contents: read
+
+jobs:
+  hello:
+    runs-on: ubuntu-latest
+
+    env:
+      DO_NOT_TRACK: "1"
+      DAGGER_NO_NAG: "1"
+      DAGGER_LOG_FORMAT: "plain"
+
+    steps:
+      - name: Run Dagger module function (hello)
+        uses: dagger/dagger-for-github@v8.2.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN || github.token }}
+        with:
+          version: "0.19.10"
+          verb: call
+          # repo/subdir@ref
+          module: github.com/shahbazmastan/dagger-modules/hello@main
+          args: >-
+            hello
+            --release-version=${{ inputs.release_version }}
+            --tag-prefix=${{ inputs.tag_prefix }}
+            --dry-run=${{ inputs.dry_run }}
+            --github-token=env:GITHUB_TOKEN
