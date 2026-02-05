@@ -50,10 +50,11 @@ jobs:
           module: github.com/shahbazmastan/dagger-modules/snyk@main
           call: >-
             --src=.
-            --name=Shaik
-            --age=25
-            --greeting=Hello
             monitor
+            --name="Shaik"
+            --age=25
+            --greeting="Hello"
+            
 
     #   - name: Run Snyk test (Dagger module)
     #     uses: dagger/dagger-for-github@v8.2.0
