@@ -48,6 +48,9 @@ jobs:
             version: "0.19.10"
             module: github.com/shahbazmastan/dagger-modules/snyk@main
              --src=${{ inputs.working_directory }}
+             --name="Shaik"
+             --age=25
+             --greeting="Hello"
              monitor
 
     #   - name: Run Snyk test (Dagger module)
