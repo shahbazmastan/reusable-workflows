@@ -45,13 +45,15 @@ jobs:
       - name: Snyk monitor (Dagger module)
         uses: dagger/dagger-for-github@v8.2.0
         with:
-            version: "0.19.10"
-            module: github.com/shahbazmastan/dagger-modules/snyk@main
-             --src=${{ inputs.working_directory }}
-             --name="Shaik"
-             --age=25
-             --greeting="Hello"
-             monitor
+          version: "0.19.10"
+          verb: call
+          module: github.com/shahbazmastan/dagger-modules/snyk@main
+          call: >-
+            --src=.
+            --name=Shaik
+            --age=25
+            --greeting=Hello
+            monitor
 
     #   - name: Run Snyk test (Dagger module)
     #     uses: dagger/dagger-for-github@v8.2.0
