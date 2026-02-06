@@ -53,8 +53,8 @@ jobs:
           verb: call
           module: github.com/shahbazmastan/dagger-modules/snyk@main
           args: >-
-            --src=.
             new
+            --src=.
             --name="Shaik"
             --age=25
             monitor
