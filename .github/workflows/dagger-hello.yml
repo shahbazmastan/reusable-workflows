@@ -54,6 +54,7 @@ jobs:
           module: github.com/shahbazmastan/dagger-modules/snyk@main
           args: >-
             --src=.
-            monitor
+            new
             --name="Shaik"
             --age=25
+            monitor
