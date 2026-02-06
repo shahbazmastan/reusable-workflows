@@ -55,6 +55,6 @@ jobs:
           args: >-
             new
             --src=.
+            monitor
             --name="Shaik"
             --age=25
-            monitor
