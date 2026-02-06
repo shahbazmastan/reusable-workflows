@@ -28,20 +28,36 @@ jobs:
       DAGGER_LOG_FORMAT: "plain"
 
     steps:
-      - name: Run hello
+      # Needed so --src=. actually has files to point to
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Run hello (Dagger module)
         uses: dagger/dagger-for-github@v8.2.0
         env:
-            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN || github.token }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN || github.token }}
         with:
-            version: "0.19.10"
-            verb: call
-            module: github.com/shahbazmastan/dagger-modules/hello@main
-            args: >-
-                hello
-                --release-version=${{ inputs.release_version }}
-                --tag-prefix=${{ inputs.tag_prefix }}
-                --dry-run=${{ inputs.dry_run }}
-                --github-token=env:GITHUB_TOKEN
+          version: "0.19.10"
+          verb: call
+          module: github.com/shahbazmastan/dagger-modules/hello@main
+          args: >-
+            hello
+            --release-version=${{ inputs.release_version }}
+            --tag-prefix=${{ inputs.tag_prefix }}
+            --dry-run=${{ inputs.dry_run }}
+            --github-token=env:GITHUB_TOKEN
+
+      # # Optional debug: shows exactly what flags Dagger thinks "new" requires
+      # # Remove once stable.
+      # - name: Snyk module help (debug)
+      #   uses: dagger/dagger-for-github@v8.2.0
+      #   with:
+      #     version: "0.19.10"
+      #     verb: call
+      #     module: github.com/shahbazmastan/dagger-modules/snyk@main
+      #     args: >-
+      #       new --help
+
       - name: Snyk monitor (Dagger module)
         uses: dagger/dagger-for-github@v8.2.0
         with:
@@ -53,23 +69,4 @@ jobs:
             --src=.
             --name=Shaik
             --age=25
-            --greeting=Hello
             monitor
-            
-
-    #   - name: Run Snyk test (Dagger module)
-    #     uses: dagger/dagger-for-github@v8.2.0
-    #     with:
-    #         version: "0.19.10"
-    #         module: github.com/shahbazmastan/dagger-modules/snyk@main
-    #         call: test
-    #   - name: Run Snyk test (Dagger module)
-    #     uses: dagger/dagger-for-github@v8.2.0
-    #     with:
-    #         version: "0.19.10"
-    #         module: github.com/shahbazmastan/dagger-modules/snyk@main
-    #         call: monitor
-
-
-
-
