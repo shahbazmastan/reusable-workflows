@@ -48,13 +48,16 @@ jobs:
 
       - name: Snyk monitor (Dagger module)
         uses: dagger/dagger-for-github@v8.2.0
+        env:
+          DO_NOT_TRACK: "1"
+          DAGGER_NO_NAG: "1"
+          DAGGER_LOG_FORMAT: "plain"
         with:
-          version: "0.19.10"
-          verb: call
           module: github.com/shahbazmastan/dagger-modules/snyk@main
-          args: >-
-            --src=.
-            --name="Shaik"
-            --age=25
+          version: "0.19.10"
+          call: >-
+            --src=${{ inputs.working_directory || '.' }}
+            --name=${{ inputs.developer_name || 'Developer' }}
+            --age=${{ inputs.age || '25' }}
             monitor
             
