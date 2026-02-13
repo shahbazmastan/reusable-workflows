@@ -52,7 +52,7 @@ jobs:
           DO_NOT_TRACK: "1"
           DAGGER_NO_NAG: "1"
           DAGGER_LOG_FORMAT: "plain"
-          DAGGER_LOG_LEVEL: "warn" 
+          DAGGER_LOG_LEVEL: "error" 
         with:
           module: github.com/shahbazmastan/dagger-modules/snyk@main
           version: "0.19.10"
